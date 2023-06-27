@@ -1,0 +1,60 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.jumbotron {
+    margin-top: 50px;
+    background-image: url('../img/background_acd.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+}
+
+.jumbotron p {
+    color: #fff;
+    font-size: 125%;
+    font-weight: bolder;
+    background-color: red;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 30px;
+    width: max-content;
+    margin: auto;
+}
+
+.jumbotron h1 {
+    color: #fff;
+    font-size: 4vw;
+    font-weight: bolder;
+}
+
+header {
+    position: fixed;
+    width: 100vw;
+    top: 0;
+}
+
+footer {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    bottom: 0;
+}
+
+
+.row{
+    display: flex;
+    justify-content:space-between;
+    margin: auto;
+}
+
+.col-md-4 h3{
+    text-align: center;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}

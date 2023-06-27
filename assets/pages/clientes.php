@@ -1,13 +1,20 @@
 <?php
-include '../crud/conexao.php';
+    include '../crud/conexao.php';
 
-// Consulta SQL para obter os registros dos clientes
-$sql = "SELECT * FROM clientes";
+    // Verifica se foi enviado um nome para filtrar
+    if (isset($_GET['nome_cliente'])) {
+        $nome_cliente = $_GET['nome_cliente'];
+        // Consulta SQL para obter os registros dos clientes filtrados pelo nome
+        $sql = "SELECT * FROM clientes WHERE nome_cliente LIKE '%$nome_cliente%'";
+    } else {
+        // Consulta SQL para obter todos os registros dos clientes
+        $sql = "SELECT * FROM clientes";
+    }
 
-$cadastros_clientes = $connection->query($sql);
+    $cadastros_clientes = $connection->query($sql);
 
-// Fecha a conexão com o banco de dados
-$connection->close();
+    // Fecha a conexão com o banco de dados
+    $connection->close();
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +28,33 @@ $connection->close();
 
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="../../index.html">Academia - Área Administrativa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./pagamentos.php">Pagamentos</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+
     <div class="container">
         <h1 class="text-center mb-4">Cadastro de Clientes</h1>
-        
+    
         <!-- Botões -->
         <div class="text-right mb-3">
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalCadastro">Cadastrar Cliente</button>
@@ -32,7 +63,14 @@ $connection->close();
         </div>
         
         <!-- Tabela de Clientes -->
-        <h3 class="mt-5">Clientes</h3>
+
+        <form action="" method="GET" class="mb-3">
+            <div class="form-group">
+                <label for="nome_cliente">Filtrar por nome:</label>
+                <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?php echo isset($_GET['nome_cliente']) ? $_GET['nome_cliente'] : ''; ?>">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -43,7 +81,7 @@ $connection->close();
                 </tr>
             </thead>
             <tbody>
-                <?php
+            <?php
                 while ($row = $cadastros_clientes->fetch_assoc()) {
                     echo '<tr>';
                     echo '<td>' . $row['codigo_cliente'] . '</td>';
@@ -141,6 +179,11 @@ $connection->close();
             </div>
         </div>
     </div>
+
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>ETEC Sales Gomes | Desenvolvido por <a href="https://github.com/rDearo" target="_blank">Rodrigo</a> e  <a href="https://github.com/liabueno" target="_blank">Júlia</a></p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

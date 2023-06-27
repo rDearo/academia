@@ -1,13 +1,31 @@
 <?php
-include '../crud/conexao.php';
+    include '../crud/conexao.php';
 
-// Consulta SQL para obter os registros dos clientes
-$sql = "SELECT * FROM pagamento";
+    // Parâmetros de pesquisa
+    $nomeCliente = $_GET['nome_cliente'] ?? '';
+    $dataPagamento = $_GET['data_pagamento'] ?? '';
 
-$registros_pagamentos = $connection->query($sql);
+    // Consulta SQL para obter os registros dos pagamentos
+    $sql = "SELECT * FROM pagamento";
 
-// Fecha a conexão com o banco de dados
-$connection->close();
+    // Adiciona a cláusula WHERE caso os parâmetros de pesquisa tenham sido enviados
+    if (!empty($nomeCliente) || !empty($dataPagamento)) {
+        $sql .= " WHERE";
+        if (!empty($nomeCliente)) {
+            $sql .= " nome_cliente LIKE '%$nomeCliente%'";
+        }
+        if (!empty($nomeCliente) && !empty($dataPagamento)) {
+            $sql .= " AND";
+        }
+        if (!empty($dataPagamento)) {
+            $sql .= " data_pagamento = '$dataPagamento'";
+        }
+    }
+
+    $registros_pagamentos = $connection->query($sql);
+
+    // Fecha a conexão com o banco de dados
+    $connection->close();
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +38,30 @@ $connection->close();
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="../../index.html">Academia - Área Administrativa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./clientes.php">Clientes</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Pagamentos</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
     <div class="container">
         <h1 class="text-center mb-4">Registro de Pagamentos</h1>
         
@@ -29,34 +71,61 @@ $connection->close();
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalAtualizar">Editar Pagamento</button>
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalDeletar">Deletar Pagamento</button>
         </div>
+
+    
         
         <!-- Tabela de Clientes -->
         <h3 class="mt-5">Pagamentos</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Código do Pagamento</th>
-                    <th>Código do Cliente</th>
-                    <th>Nome do Cliente</th>
-                    <th>Data de Pagamento</th>
-                    <th>Valor do Pagamento</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                while ($row = $registros_pagamentos->fetch_assoc()) {
-                    echo '<tr>';
-                    echo '<td>' . $row['codigo_pagamento'] . '</td>';
-                    echo '<td>' . $row['codigo_cliente'] . '</td>';
-                    echo '<td>' . $row['nome_cliente'] . '</td>';
-                    echo '<td>' . $row['data_pagamento'] . '</td>';
-                    echo '<td>' . $row['valor_pagamento'] . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-            </tbody>
-        </table>
+        <form class="form-inline mt-3 mb-3" method="GET" id="form_pesquisa">
+            <div class="form-group mr-2">
+                <label for="nome_cliente">Nome do Cliente:</label>
+                <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" placeholder="Digite o nome do cliente">
+            </div>
+            <div class="form-group mr-2">
+                <label for="data_pagamento">Data de Pagamento:</label>
+                <input type="date" class="form-control" id="data_pagamento" name="data_pagamento">
+            </div>
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </form>
+        <?php if ($registros_pagamentos->num_rows > 0): ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código do Pagamento</th>
+                        <th>Código do Cliente</th>
+                        <th>Nome do Cliente</th>
+                        <th>Data de Pagamento</th>
+                        <th>Valor do Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php while ($row = $registros_pagamentos->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= $row['codigo_pagamento'] ?></td>
+                        <td><?= $row['codigo_cliente'] ?></td>
+                        <td><?= $row['nome_cliente'] ?></td>
+                        <td><?= $row['data_pagamento'] ?></td>
+                        <td><?= $row['valor_pagamento'] ?></td>
+                    </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>Nenhum resultado encontrado.</p>
+        <?php endif; ?>
     </div>
+
+    <!-- Formulário de Pesquisa -->
+    <div class="modal fade" id="modalPesquisa" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal de Cadastro -->
     <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
@@ -78,6 +147,10 @@ $connection->close();
                         <div class="form-group">
                             <label for="telefone">Valor</label>
                             <input type="number" class="form-control" id="valor" name="valor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data Pagamento</label>
+                            <input type="date" class="form-control" id="data" name="data" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
@@ -105,7 +178,11 @@ $connection->close();
                         </div>
                         <div class="form-group">
                             <label for="telefone">Valor</label>
-                            <input type="number" class="form-control" id="valor" name="valor" required>
+                            <input type="number" class="form-control" id="valor" name="valor">
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data Pagamento</label>
+                            <input type="date" class="form-control" id="data" name="data">
                         </div>
                         <button type="submit" class="btn btn-primary">Atualizar</button>
                     </form>
@@ -138,6 +215,11 @@ $connection->close();
             </div>
         </div>
     </div>
+
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>ETEC Sales Gomes | Desenvolvido por <a href="https://github.com/rDearo" target="_blank">Rodrigo</a> e  <a href="https://github.com/liabueno" target="_blank">Júlia</a></p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
