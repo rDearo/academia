@@ -14,7 +14,7 @@
         $sql = "UPDATE clientes SET telefone = '$telefone' WHERE codigo_cliente = $codigo ";
     }
     else if(($telefone!=null)&&($nome!=null)){
-        $sql = "UPDATE clientes SET nome_cliente = '$nome' telefone = '$telefone' WHERE codigo_cliente = $codigo ";
+        $sql = "UPDATE clientes SET nome_cliente = '$nome', telefone = '$telefone' WHERE codigo_cliente = $codigo ";
     }
     else{
         $sql = "";

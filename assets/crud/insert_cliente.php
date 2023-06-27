@@ -19,9 +19,9 @@
     } else {
         echo "Erro ao inserir dados: " . $connection->error;
     }
-form_pesquisa
 
     // Fecha a conexão com o banco de dados
     $connection->close();
+
 ?>
 

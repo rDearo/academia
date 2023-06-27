@@ -8,7 +8,8 @@ body {
     background-image: url('../img/background_acd.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 500px;
+    min-height: 42vh;
+    max-height: 42vh;
 }
 
 .jumbotron p {
