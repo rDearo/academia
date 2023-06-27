@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Academia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Cadastro de Clientes</h1>
+        
+        <!-- Botões -->
+        <div class="text-right mb-3">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCadastro">Ver Pagamentos</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCadastro">Registrar Pagamento</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalAtualizar">Editar Pagamento</button>
+        </div>
+        
+        <!-- Tabela de Clientes -->
+        <h3 class="mt-5">Pagamentos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Código do Pagamento</th>
+                    <th>Código do Cliente</th>
+                    <th>Nome do Cliente</th>
+                    <th>Data de Pagamento</th>
+                    <th>Valor do Pagamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aqui você pode exibir os dados dos clientes dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCadastroLabel">Registrar Pagamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de cadastro de clientes -->
+                    <form action="cadastrar_cliente.php" method="POST">
+                        <div class="form-group">
+                            <label for="nome_cliente">Código do Cliente</label>
+                            <input type="text" class="form-control" id="codigo_cliente" name="codigo_cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Valor</label>
+                            <input type="number" class="form-control" id="valor" name="valor" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Atualização -->
+    <div class="modal fade" id="modalAtualizar" tabindex="-1" role="dialog" aria-labelledby="modalAtualizarLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAtualizarLabel">Editar Pagamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de atualização de clientes -->
+                    <form action="atualizar_cliente.php" method="POST">
+                        <div class="form-group">
+                            <label for="codigo_cliente">Código do Cliente:</label>
+                            <input type="text" class="form-control" id="codigo_cliente" name="codigo_cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nome_cliente">Nome do Cliente:</label>
+                            <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone:</label>
+                            <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
