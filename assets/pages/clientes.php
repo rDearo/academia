@@ -1,5 +1,5 @@
 <?php
-    include '../crud/conexao.php';
+    include '../database/conexao.php';
 
     // Verifica se foi enviado um nome para filtrar
     if (isset($_GET['nome_cliente'])) {
@@ -107,7 +107,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de cadastro de clientes -->
-                    <form action="../crud/insert_cliente.php" method="POST">
+                    <form action="../crud/cliente/insert_cliente.php" method="POST">
                         <div class="form-group">
                             <label for="nome_cliente">Nome do Cliente:</label>
                             <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de atualização de clientes -->
-                    <form action="../crud/update_cliente.php" method="POST">
+                    <form action="../crud/cliente/update_cliente.php" method="POST">
                         <div class="form-group">
                             <label for="codigo_cliente">Código do Cliente:</label>
                             <input type="number" class="form-control" id="codigo_cliente" name="codigo_cliente" required>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de delete de clientes -->
-                    <form action="../crud/delete_cliente.php" method="POST">
+                    <form action="../crud/cliente/delete_cliente.php" method="POST">
                         <div class="form-group">
                             <label for="nome_cliente">Id do Cliente:</label>
                             <input type="number" class="form-control" id="id_cliente" name="id_cliente" required>

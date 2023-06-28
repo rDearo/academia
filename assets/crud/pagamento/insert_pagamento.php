@@ -1,7 +1,7 @@
 <?php
-    header("Location: ../pages/pagamentos.php");
+    header("Location: ../../pages/pagamentos.php");
 
-    include 'conexao.php';
+    include '../../database/conexao.php';
 
     $codigo_cliente = isset($_POST['codigo_cliente']) ? $_POST['codigo_cliente'] : null;
     $data_pagamento = isset($_POST['data']) ? $_POST['data'] : null;

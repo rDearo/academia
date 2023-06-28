@@ -1,5 +1,5 @@
 <?php
-    include '../crud/conexao.php';
+    include '../database/conexao.php';
 
     // Parâmetros de pesquisa
     $nomeCliente = $_GET['nome_cliente'] ?? '';
@@ -139,7 +139,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de cadastro de clientes -->
-                    <form action="../crud/insert_pagamento.php" method="POST">
+                    <form action="../crud/pagamento/insert_pagamento.php" method="POST">
                         <div class="form-group">
                             <label for="nome_cliente">Código do Cliente</label>
                             <input type="text" class="form-control" id="codigo_cliente" name="codigo_cliente" required>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de atualização de clientes -->
-                    <form action="../crud/update_pagamento.php" method="POST">
+                    <form action="../crud/pagamento/update_pagamento.php" method="POST">
                         <div class="form-group">
                             <label for="nome_cliente">Código do Pagamento</label>
                             <input type="text" class="form-control" id="codigo_pagamento" name="codigo_pagamento" required>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário de atualização de clientes -->
-                    <form action="../crud/delete_pagamento.php" method="POST">
+                    <form action="../crud/pagamento/delete_pagamento.php" method="POST">
                         <div class="form-group">
                             <label for="codigo_cliente">Código do Pagamento:</label>
                             <input type="number" class="form-control" id="codigo_pagamento" name="codigo_pagamento" required>

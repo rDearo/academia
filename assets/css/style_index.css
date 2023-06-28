@@ -59,3 +59,7 @@ footer {
     justify-content: center;
     margin: auto;
 }
+
+.text-card{
+    text-align: justify;
+}

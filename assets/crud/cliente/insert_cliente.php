@@ -1,7 +1,7 @@
 <?php
-	header("Location: ../pages/clientes.php");
+	header("Location: ../../pages/clientes.php");
 
-    include 'conexao.php';
+    include '../../database/conexao.php';
 
     $nome = isset($_POST['nome_cliente']) ? $_POST['nome_cliente'] : null;
     $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;

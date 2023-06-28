@@ -1,7 +1,7 @@
 <?php
-	header("Location: ../pages/clientes.php");
+	header("Location: ../../pages/clientes.php");
 
-    include 'conexao.php';
+    include '../../database/conexao.php';
 
     $id = isset($_POST['id_cliente']) ? $_POST['id_cliente'] : null;
 
